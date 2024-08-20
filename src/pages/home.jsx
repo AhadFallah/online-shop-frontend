@@ -138,7 +138,7 @@ function Home() {
         </div>
       </div>
 
-      <NavBar />
+      <NavBar home='true' house='true' />
     </div>
   );
 }

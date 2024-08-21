@@ -10,7 +10,7 @@ function Home() {
   const [heros, setHeros] = useState([]);
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const [page, setPage] = useState(data.api+"home");
+  const [page, setPage] = useState(data.api + "home");
 
   useEffect(() => {
     fetch(page)
@@ -49,6 +49,7 @@ function Home() {
         <div className="flex flex-wrap gap-16 m-5">
           {products.data.map((product) => (
             <Pcard
+              id={product.id}
               name={product.name}
               category={product.category}
               price={product.price}
@@ -85,9 +86,15 @@ function Home() {
             </a>
             {pagi.map((i) => (
               <a
-                class={"hidden md:flex w-10 h-10 mx-1 justify-center items-center rounded-full border"+(products.page===i? " border-gray-700 ":" border-gray-200 ") +"bg-white dark:bg-gray-700 text-black dark:text-white hover:border-gray-300 dark:hover:border-gray-600"}
+                class={
+                  "hidden md:flex w-10 h-10 mx-1 justify-center items-center rounded-full border" +
+                  (products.page === i
+                    ? " border-gray-700 "
+                    : " border-gray-200 ") +
+                  "bg-white dark:bg-gray-700 text-black dark:text-white hover:border-gray-300 dark:hover:border-gray-600"
+                }
                 href="#"
-                onClick={()=>setPage(data.api+'home?page='+i)}
+                onClick={() => setPage(data.api + "home?page=" + i)}
                 title={"صفحه" + { i }}
               >
                 {i}
@@ -105,7 +112,9 @@ function Home() {
                 <a
                   class="hidden md:flex w-10 h-10 mx-1 justify-center items-center rounded-full border border-gray-200 bg-white dark:bg-gray-700 text-black dark:text-white hover:border-gray-300 dark:hover:border-gray-600"
                   href="#"
-                  onClick={()=>setPage(data.api+'home?page='+products.total)}
+                  onClick={() =>
+                    setPage(data.api + "home?page=" + products.total)
+                  }
                   title="صفحه آخر"
                 >
                   {products.total}
@@ -138,7 +147,7 @@ function Home() {
         </div>
       </div>
 
-      <NavBar home='true' house='true' />
+      <NavBar home="true" house="true" />
     </div>
   );
 }

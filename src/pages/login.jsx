@@ -1,13 +1,15 @@
 import { useState } from "react";
 import NavBar from "../components/navbar";
 import data from "../config/config.json";
-import { useRecoilState } from "recoil";
-import {token} from '../recoil/atoms/token'
+import { useCookies } from "react-cookie";
+import { useAsyncError } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [mytoken, setMyToken]=useRecoilState(token);
+  const [cookies, setCookies]=useCookies(['user']);
+  const [loading,setLoading]=useState(false)
   const handleSubmit = (e) => {
+    setLoading(true);
     e.preventDefault();
     fetch(data.api + "login", {
       method: "POST",
@@ -23,9 +25,9 @@ function Login() {
         return response.json();
       })
       .then(function (data) {
-        setMyToken(data.access_token);
-        console.log(mytoken);
+        setCookies(['user'],data.access_token,{path:"/"});
       });
+      setLoading(false);
   };
   return (
     <div>

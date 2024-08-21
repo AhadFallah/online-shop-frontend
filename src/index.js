@@ -7,6 +7,8 @@ import Home from "./pages/home";
 import Login from "./pages/login";
 import { RecoilRoot } from "recoil";
 import Search from "./pages/serch";
+import Buy from "./pages/buy";
+import { CookiesProvider } from "react-cookie";
 
 const router = createBrowserRouter([
   {
@@ -18,15 +20,21 @@ const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path:'/search',
-    element:<Search/>
-  }
+    path: "/search",
+    element: <Search />,
+  },
+  {
+    path: "/basket",
+    element: <Buy />,
+  },
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <RouterProvider router={router} />
+      <CookiesProvider>
+        <RouterProvider router={router} />
+      </CookiesProvider>
     </RecoilRoot>
   </React.StrictMode>
 );

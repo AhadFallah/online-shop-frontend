@@ -3,23 +3,28 @@ import "../index.css";
 import NavBar from "../components/navbar";
 import Hero from "../components/hero";
 import Pcard from "../components/pcard";
-import data from "../config/config.json";
+import Heading from "../components/heading";
+import { useCookies } from "react-cookie";
+import axiosClient from "../config/axiosClient";
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [heros, setHeros] = useState([]);
+  const [cookie, setCookies] = useCookies();
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const [page, setPage] = useState(data.api + "home");
-
+  const data = "http://localhost:8000/api/home";
+  const [page, setPage] = useState(data);
+  console.log(cookie.user);
   useEffect(() => {
-    fetch(page)
-      .then((response) => response.json())
+    axiosClient
+      .get("/home")
       .then((data) => {
+        data=data.data;
         setProducts(data.products);
         setHeros(data.heros);
         setLoading(false); // Set loading to false once data is fetched
-        console.log(data.products);
+        console.log(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
@@ -44,8 +49,7 @@ function Home() {
             <Hero img={hero.img} name={hero.name} des={hero.description} />
           ))}
         </div>
-        <p className="m-5">تازه ها</p>
-        <hr className="w-screen m-5" />
+        <Heading title="تازه ها" />
         <div className="flex flex-wrap gap-16 m-5">
           {products.data.map((product) => (
             <Pcard
@@ -54,6 +58,20 @@ function Home() {
               category={product.category}
               price={product.price}
               img={product.img.path}
+              bookmark={product.bookmark}
+            />
+          ))}
+        </div>
+        <Heading title="پرطرفدار" />
+        <div className="flex flex-wrap gap-16 m-5">
+          {products.data.map((product) => (
+            <Pcard
+              id={product.id}
+              name={product.name}
+              category={product.category}
+              price={product.price}
+              img={product.img.path}
+              bookmark={product.bookmark}
             />
           ))}
         </div>
@@ -94,7 +112,7 @@ function Home() {
                   "bg-white dark:bg-gray-700 text-black dark:text-white hover:border-gray-300 dark:hover:border-gray-600"
                 }
                 href="#"
-                onClick={() => setPage(data.api + "home?page=" + i)}
+                onClick={() => setPage(data + "?page=" + i)}
                 title={"صفحه" + { i }}
               >
                 {i}
@@ -112,9 +130,7 @@ function Home() {
                 <a
                   class="hidden md:flex w-10 h-10 mx-1 justify-center items-center rounded-full border border-gray-200 bg-white dark:bg-gray-700 text-black dark:text-white hover:border-gray-300 dark:hover:border-gray-600"
                   href="#"
-                  onClick={() =>
-                    setPage(data.api + "home?page=" + products.total)
-                  }
+                  onClick={() => setPage(data + "?page=" + products.total)}
                   title="صفحه آخر"
                 >
                   {products.total}

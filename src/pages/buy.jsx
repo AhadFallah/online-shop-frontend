@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import Bcard from "../components/bcard";
 import { useCookies } from "react-cookie";
 
 function Buy() {
   const [cookies, setCookies] = useCookies(["basket"]);
+  const [loading,setLoading]= useState(false);
   if (!cookies.basket) {
-    console.log("Initializing 'basket' cookie as an empty array");
-
+    setLoading(true);
     setCookies("basket", [], { path: "/", sameSite: "Lax", secure: true });
+    setLoading(false);
   }
+  if(loading){
+    <p>loading...</p>
+  }
+  else{
   const totalPrice = cookies.basket.reduce((acc, item) => {
     return acc + item.price * item.number;
   }, 0);
@@ -81,6 +86,7 @@ function Buy() {
       </div>
     </React.Fragment>
   );
+  }
 }
 
 export default Buy;

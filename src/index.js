@@ -9,6 +9,7 @@ import { RecoilRoot } from "recoil";
 import Search from "./pages/serch";
 import Buy from "./pages/buy";
 import { CookiesProvider } from "react-cookie";
+import { ContextProvider } from "./context/context";
 
 const router = createBrowserRouter([
   {
@@ -32,9 +33,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <CookiesProvider>
-        <RouterProvider router={router} />
-      </CookiesProvider>
+      <ContextProvider>
+        <CookiesProvider>
+          <RouterProvider router={router} />
+        </CookiesProvider>
+      </ContextProvider>
     </RecoilRoot>
   </React.StrictMode>
 );

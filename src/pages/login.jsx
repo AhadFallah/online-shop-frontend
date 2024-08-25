@@ -1,39 +1,40 @@
 import React, { useState } from "react";
 import NavBar from "../components/navbar";
-import data from "../config/config.json";
-import { useCookies } from "react-cookie";
-import { useAsyncError } from "react-router-dom";
 import Profile from "../components/profile";
+import { useStateContext } from "../context/context";
+import axiosClient from "../config/axiosClient";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [cookies, setCookies] = useCookies(["user"]);
+  const { token, setUser, setToken } = useStateContext();
   const [loading, setLoading] = useState(false);
+  const [emailErrors, setEmailErrors] = useState([]);
+  const [passwordErrors, setPasswordErrors] = useState([]);
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
-    fetch(data.api + "login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json", // Specify content type
-      },
-      body: JSON.stringify({
+    axiosClient
+      .post("login", {
         email: email,
         password: password,
-      }),
-    })
-      .then(function (response) {
-        return response.json();
       })
-      .then(function (data) {
-        setCookies(["user"], data.access_token, { path: "/" });
+      .then((data) => {
+        data = data.data;
+        setToken(data.token);
+        setUser(data.user);
+        console.log(token);
+      })
+      .catch((error) => {
+        setEmailErrors(error.response.data.errors.email);
+        setPasswordErrors(error.response.data.errors.password);
       });
+
     setLoading(false);
   };
   return (
     <React.Fragment>
       <div>
-        {cookies.user ? (
+        {token ? (
           <Profile />
         ) : (
           <div
@@ -61,6 +62,12 @@ function Login() {
                     placeholder="your@email.com"
                     required
                   />
+                  {emailErrors.map((error) => (
+                    <React.Fragment>
+                      <label className="text-red-600">{error}</label>
+                      <br />
+                    </React.Fragment>
+                  ))}
                 </div>
                 <div className="mb-4">
                   <label
@@ -77,6 +84,13 @@ function Login() {
                     placeholder="Enter your password"
                     required
                   />
+                  {passwordErrors.map((error) => (
+                    <React.Fragment>
+                      <label className="text-red-600">{error}</label>
+                      <br />
+                    </React.Fragment>
+                  ))}
+
                   <a
                     href="#"
                     className="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

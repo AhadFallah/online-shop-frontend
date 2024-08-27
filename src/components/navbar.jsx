@@ -20,26 +20,26 @@ function NavBar(props) {
             >
               پرطرفدار
             </button>
-            <button
-              type="button"
+            <Link
+              to="/"
               class={
-                "px-5 py-1.5 text-xs font-medium" +
+                "px-5 py-1.5 text-center text-xs font-medium" +
                 (props.home ? " text-white bg-gray-900 " : " text-gray-900 ") +
                 "hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg"
               }
             >
               خانه
-            </button>
-            <button
-              type="button"
+            </Link>
+            <Link
+              to="/newest"
               class={
-                "px-5 py-1.5 text-xs font-medium" +
+                "px-5 py-1.5 text-center text-xs font-medium" +
                 (props.news ? " text-white bg-gray-900 " : " text-gray-900 ") +
                 "hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg"
               }
             >
               تازه ها
-            </button>
+            </Link>
           </div>
         ) : null}
         {props.sum ? (
@@ -88,13 +88,18 @@ function NavBar(props) {
           Home
           <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
-        <button
+        <Link
+          to="/bookmarks"
           data-tooltip-target="tooltip-bookmark"
           type="button"
           class="inline-flex flex-col items-center justify-center p-4 hover:bg-gray-50 dark:hover:bg-gray-800 group"
         >
           <svg
-            class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+            class={
+              "w-5 h-5 mb-1" +
+              (props.bookmark ? " text-blue-400 " : null) +
+              "text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
+            }
             aria-hidden="true"
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
@@ -103,7 +108,7 @@ function NavBar(props) {
             <path d="M13 20a1 1 0 0 1-.64-.231L7 15.3l-5.36 4.469A1 1 0 0 1 0 19V2a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v17a1 1 0 0 1-1 1Z" />
           </svg>
           <span class="sr-only">Bookmark</span>
-        </button>
+        </Link>
         <div
           id="tooltip-bookmark"
           role="tooltip"

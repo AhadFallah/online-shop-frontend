@@ -7,7 +7,6 @@ function Buy() {
   const [cookies, setCookies] = useCookies(["basket"]);
   const [loading,setLoading]= useState(false);
   if (!cookies.basket) {
-    setLoading(true);
     setCookies("basket", [], { path: "/", sameSite: "Lax", secure: true });
     setLoading(false);
   }

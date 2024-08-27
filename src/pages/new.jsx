@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
 import "../index.css";
 import NavBar from "../components/navbar";
-import Hero from "../components/hero";
 import Pcard from "../components/pcard";
 import Heading from "../components/heading";
 import { useCookies } from "react-cookie";
 import axiosClient from "../config/axiosClient";
 
-function Home() {
+function New() {
   const [products, setProducts] = useState([]);
-  const [heros, setHeros] = useState([]);
   const [cookie, setCookies] = useCookies();
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const data = "http://localhost:8000/api/home";
+  const data = "http://localhost:8000/api/new";
   const [page, setPage] = useState(data);
   console.log(cookie.user);
   useEffect(() => {
     axiosClient
-      .get("/home")
+      .get("/new")
       .then((data) => {
         data=data.data;
         setProducts(data.products);
-        setHeros(data.heros);
         setLoading(false); // Set loading to false once data is fetched
         console.log(data);
       })
@@ -44,25 +41,7 @@ function Home() {
   return (
     <div dir="rtl">
       <div className="mb-36">
-        <div class="relative">
-          {heros.map((hero) => (
-            <Hero img={hero.img} name={hero.name} des={hero.description} />
-          ))}
-        </div>
-        <Heading title="تازه ها" tailwind="mt-24"/>
-        <div className="flex flex-wrap gap-16 m-5">
-          {products.data.map((product) => (
-            <Pcard
-              id={product.id}
-              name={product.name}
-              category={product.category}
-              price={product.price}
-              img={product.img.path}
-              bookmark={product.bookmark}
-            />
-          ))}
-        </div>
-        <Heading title="پرطرفدار" />
+        <Heading title="تازه ها" tailwind="mt-4"/>
         <div className="flex flex-wrap gap-16 m-5">
           {products.data.map((product) => (
             <Pcard
@@ -163,9 +142,10 @@ function Home() {
         </div>
       </div>
 
-      <NavBar home="true" house="true" />
+      <NavBar news="true" house="true" />
     </div>
   );
 }
 
-export default Home;
+export default New;
+

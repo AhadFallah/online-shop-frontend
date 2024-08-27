@@ -6,10 +6,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import { RecoilRoot } from "recoil";
-import Search from "./pages/serch";
+import Search from "./pages/search";
 import Buy from "./pages/buy";
 import { CookiesProvider } from "react-cookie";
 import { ContextProvider } from "./context/context";
+import Bookmarks from "./pages/bookmarks";
+import New from "./pages/new";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ const router = createBrowserRouter([
     path: "/basket",
     element: <Buy />,
   },
+  {
+    path: "/bookmarks",
+    element: <Bookmarks/>
+  },
+  {
+    path:"/newest",
+    element:<New/>
+  }
 ]);
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

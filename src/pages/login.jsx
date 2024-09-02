@@ -3,10 +3,11 @@ import NavBar from "../components/navbar";
 import Profile from "../components/profile";
 import { useStateContext } from "../context/context";
 import axiosClient from "../config/axiosClient";
+import { json } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { token, setUser, setToken } = useStateContext();
+  const {user,token, setUser, setToken } = useStateContext();
   const [loading, setLoading] = useState(false);
   const [emailErrors, setEmailErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
@@ -22,7 +23,7 @@ function Login() {
         data = data.data;
         setToken(data.token);
         setUser(data.user);
-        console.log(token);
+        localStorage.setItem('USER',JSON.stringify(data.user));
       })
       .catch((error) => {
         setEmailErrors(error.response.data.errors.email);
@@ -35,7 +36,7 @@ function Login() {
     <React.Fragment>
       <div>
         {token ? (
-          <Profile />
+          <Profile user={localStorage.getItem('USER')}/>
         ) : (
           <div
             className="min-h-screen flex items-center justify-center w-full dark:bg-gray-950 mb-36"

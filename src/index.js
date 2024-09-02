@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -9,9 +9,11 @@ import { RecoilRoot } from "recoil";
 import Search from "./pages/search";
 import Buy from "./pages/buy";
 import { CookiesProvider } from "react-cookie";
-import { ContextProvider } from "./context/context";
+import { ContextProvider, useStateContext } from "./context/context";
 import Bookmarks from "./pages/bookmarks";
 import New from "./pages/new";
+import Page from "./pages/page";
+import Start from "./components/start";
 
 const router = createBrowserRouter([
   {
@@ -32,13 +34,18 @@ const router = createBrowserRouter([
   },
   {
     path: "/bookmarks",
-    element: <Bookmarks/>
+    element: <Bookmarks />,
   },
   {
-    path:"/newest",
-    element:<New/>
-  }
+    path: "/newest",
+    element: <New />,
+  },
+  {
+    path: "/details",
+    element: <Page />,
+  },
 ]);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -46,6 +53,7 @@ root.render(
       <ContextProvider>
         <CookiesProvider>
           <RouterProvider router={router} />
+          <Start />
         </CookiesProvider>
       </ContextProvider>
     </RecoilRoot>

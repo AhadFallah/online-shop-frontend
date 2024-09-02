@@ -45,12 +45,7 @@ function New() {
         <div className="flex flex-wrap gap-16 m-5">
           {products.data.map((product) => (
             <Pcard
-              id={product.id}
-              name={product.name}
-              category={product.category}
-              price={product.price}
-              img={product.img.path}
-              bookmark={product.bookmark}
+              product={product}
             />
           ))}
         </div>

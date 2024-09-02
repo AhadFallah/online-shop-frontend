@@ -3,15 +3,20 @@ import "../index.css";
 import NavBar from "../components/navbar";
 import Pcard from "../components/pcard";
 import Heading from "../components/heading";
-import { useCookies } from "react-cookie";
 import axiosClient from "../config/axiosClient";
+import { useNavigate } from "react-router-dom";
+import { useStateContext } from "../context/context";
 function Bookmarks() {
   const [products, setProducts] = useState([]);
-  const [cookie, setCookies] = useCookies();
+  const { user, token } = useStateContext();
+  const navigate = useNavigate();
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
   const data = "http://localhost:8000/api/allBookmarks";
   const [page, setPage] = useState(data);
+  if (!token) {
+    navigate("/login");
+  }
   useEffect(() => {
     axiosClient
       .get("allBookmarks")
@@ -39,19 +44,12 @@ function Bookmarks() {
   return (
     <div dir="rtl">
       <div className="mb-36">
-        {products.data.length!=0 ? (
+        {products.data.length != 0 ? (
           <React.Fragment>
             <Heading title="نشان شده ها" tailwind="mt-4" />
             <div className="flex flex-wrap gap-16 m-5">
               {products.data.map((product) => (
-                <Pcard
-                  id={product.id}
-                  name={product.name}
-                  category={product.category}
-                  price={product.price}
-                  img={product.img.path}
-                  bookmark={product.bookmark}
-                />
+                <Pcard product={product} />
               ))}
             </div>
             <div class="container mx-auto px-4">

@@ -20,7 +20,7 @@ function Home() {
     axiosClient
       .get("/home")
       .then((data) => {
-        data=data.data;
+        data = data.data;
         setProducts(data.products);
         setHeros(data.heros);
         setLoading(false); // Set loading to false once data is fetched
@@ -49,30 +49,16 @@ function Home() {
             <Hero img={hero.img} name={hero.name} des={hero.description} />
           ))}
         </div>
-        <Heading title="تازه ها" tailwind="mt-24"/>
+        <Heading title="تازه ها" tailwind="mt-24" />
         <div className="flex flex-wrap gap-16 m-5">
           {products.data.map((product) => (
-            <Pcard
-              id={product.id}
-              name={product.name}
-              category={product.category}
-              price={product.price}
-              img={product.img.path}
-              bookmark={product.bookmark}
-            />
+            <Pcard product={product} />
           ))}
         </div>
         <Heading title="پرطرفدار" />
         <div className="flex flex-wrap gap-16 m-5">
           {products.data.map((product) => (
-            <Pcard
-              id={product.id}
-              name={product.name}
-              category={product.category}
-              price={product.price}
-              img={product.img.path}
-              bookmark={product.bookmark}
-            />
+            <Pcard product={product} />
           ))}
         </div>
         <div class="container mx-auto px-4">

@@ -14,7 +14,7 @@ import Bookmarks from "./pages/bookmarks";
 import New from "./pages/new";
 import Page from "./pages/page";
 import Start from "./components/start";
-
+import Result from "./pages/result";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -43,6 +43,10 @@ const router = createBrowserRouter([
   {
     path: "/details",
     element: <Page />,
+  },
+  {
+    path: "/result",
+    element: <Result />,
   },
 ]);
 

@@ -18,13 +18,12 @@ function Home() {
   console.log(cookie.user);
   useEffect(() => {
     axiosClient
-      .get("/home")
+      .get(page)
       .then((data) => {
         data = data.data;
         setProducts(data.products);
         setHeros(data.heros);
         setLoading(false); // Set loading to false once data is fetched
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

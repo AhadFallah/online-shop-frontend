@@ -16,7 +16,7 @@ function New() {
   console.log(cookie.user);
   useEffect(() => {
     axiosClient
-      .get("/new")
+      .get(page)
       .then((data) => {
         data=data.data;
         setProducts(data.products);

@@ -15,6 +15,7 @@ import New from "./pages/new";
 import Page from "./pages/page";
 import Start from "./components/start";
 import Result from "./pages/result";
+import Category from "./pages/category";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/result",
     element: <Result />,
+  },
+  {
+    path: "/category",
+    element: <Category />,
   },
 ]);
 

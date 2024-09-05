@@ -6,14 +6,14 @@ import Pcard from "../components/pcard";
 import Heading from "../components/heading";
 import { useCookies } from "react-cookie";
 import axiosClient from "../config/axiosClient";
-
+import url from "../config/config.json";
 function Home() {
   const [products, setProducts] = useState([]);
   const [heros, setHeros] = useState([]);
   const [cookie, setCookies] = useCookies();
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const data = "http://localhost:8000/api/home";
+  const data = url.url+"home";
   const [page, setPage] = useState(data);
   console.log(cookie.user);
   useEffect(() => {

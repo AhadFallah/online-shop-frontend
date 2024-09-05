@@ -8,15 +8,14 @@ import { useCookies } from "react-cookie";
 import axiosClient from "../config/axiosClient";
 import { useRecoilState } from "recoil";
 import { search } from "../recoil/atoms/search";
-import axios from "axios";
-
+import url from "../config/config.json";
 function Result() {
   const [varSearch, setVarSearch] = useRecoilState(search);
   const [products, setProducts] = useState([]);
   const [cookie, setCookies] = useCookies();
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const data = "http://localhost:8000/api/search";
+  const data = url.url+"search";
   const [page, setPage] = useState(data);
   console.log(varSearch);
   useEffect(() => {

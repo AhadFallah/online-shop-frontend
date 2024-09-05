@@ -7,13 +7,14 @@ import { useCookies } from "react-cookie";
 import axiosClient from "../config/axiosClient";
 import { useRecoilState } from "recoil";
 import { category } from "../recoil/atoms/category";
+import url from "../config/config.json";
 
 function Category() {
   const [theCategory, setTheCategory] = useRecoilState(category);
   const [products, setProducts] = useState([]);
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const data = "http://localhost:8000/api/category";
+  const data = url.url+"/category";
   const [page, setPage] = useState(data);
   useEffect(() => {
     setLoading(true);

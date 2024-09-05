@@ -5,13 +5,14 @@ import Pcard from "../components/pcard";
 import Heading from "../components/heading";
 import { useCookies } from "react-cookie";
 import axiosClient from "../config/axiosClient";
+import url from "../config/config.json";
 
 function New() {
   const [products, setProducts] = useState([]);
   const [cookie, setCookies] = useCookies();
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const data = "http://localhost:8000/api/new";
+  const data = url.url+ "new";
   const [page, setPage] = useState(data);
   console.log(cookie.user);
   useEffect(() => {

@@ -6,13 +6,14 @@ import Heading from "../components/heading";
 import axiosClient from "../config/axiosClient";
 import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context/context";
+import url from "../config/config.json";
 function Bookmarks() {
   const [products, setProducts] = useState([]);
   const { user, token } = useStateContext();
   const navigate = useNavigate();
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const data = "http://localhost:8000/api/allBookmarks";
+  const data = url.url+"allBookmarks";
   const [page, setPage] = useState(data);
 useEffect(() => {
       axiosClient

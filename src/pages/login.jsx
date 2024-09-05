@@ -6,11 +6,22 @@ import axiosClient from "../config/axiosClient";
 import { json } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [address, setAddress] = useState("");
+  const [codePost, setCodePost] = useState("");
+  const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
-  const {user,token, setUser, setToken } = useStateContext();
+  const { user, token, setUser, setToken } = useStateContext();
   const [loading, setLoading] = useState(false);
   const [emailErrors, setEmailErrors] = useState([]);
+  const [nameErrors, setNameErrors] = useState([]);
+  const [mobileErrors, setMobileErrors] = useState([]);
+  const [addressErrors, setAddressErrors] = useState([]);
+  const [codePostErrors, setCodePostErrors] = useState([]);
+  const [cityErrors, setCityErrors] = useState([]);
   const [passwordErrors, setPasswordErrors] = useState([]);
+  const [login, setLogin] = useState(true);
   const handleSubmit = (e) => {
     setLoading(true);
     e.preventDefault();
@@ -23,7 +34,7 @@ function Login() {
         data = data.data;
         setToken(data.token);
         setUser(data.user);
-        localStorage.setItem('USER',JSON.stringify(data.user));
+        localStorage.setItem("USER", JSON.stringify(data.user));
       })
       .catch((error) => {
         setEmailErrors(error.response.data.errors.email);
@@ -32,109 +43,323 @@ function Login() {
 
     setLoading(false);
   };
-  return (
-    <React.Fragment>
-      <div>
-        {token ? (
-          <Profile user={localStorage.getItem('USER')}/>
-        ) : (
-          <div
-            className="min-h-screen flex items-center justify-center w-full dark:bg-gray-950 mb-36"
-            dir="rtl"
-          >
-            <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg px-8 py-6 max-w-md">
-              <h1 className="text-2xl font-bold text-center mb-4 dark:text-gray-200">
-                ورود به حساب کاربری
-              </h1>
-              <form action="#">
-                <div className="mb-4">
-                  <label
-                    for="email"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                  >
-                    ایمیل
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="your@email.com"
-                    required
-                  />
-                  {emailErrors.map((error) => (
-                    <React.Fragment>
-                      <label className="text-red-600">{error}</label>
-                      <br />
-                    </React.Fragment>
-                  ))}
-                </div>
-                <div className="mb-4">
-                  <label
-                    for="password"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
-                  >
-                    رمزعبور
-                  </label>
-                  <input
-                    type="password"
-                    id="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                    placeholder="Enter your password"
-                    required
-                  />
-                  {passwordErrors.map((error) => (
-                    <React.Fragment>
-                      <label className="text-red-600">{error}</label>
-                      <br />
-                    </React.Fragment>
-                  ))}
-
-                  <a
-                    href="#"
-                    className="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    رمزعبور خود را فراموش کردین؟
-                  </a>
-                </div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center">
-                    <input
-                      type="checkbox"
-                      id="remember"
-                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 focus:outline-none"
-                    />
+  if (login) {
+    return (
+      <React.Fragment>
+        <div>
+          {token ? (
+            <Profile user={localStorage.getItem("USER")} />
+          ) : (
+            <div
+              className="min-h-screen flex items-center justify-center w-full dark:bg-gray-950 mb-36"
+              dir="rtl"
+            >
+              <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg px-8 py-6 max-w-md">
+                <h1 className="text-2xl font-bold text-center mb-4 dark:text-gray-200">
+                  ورود به حساب کاربری
+                </h1>
+                <form action="#">
+                  <div className="mb-4">
                     <label
-                      for="remember"
-                      className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+                      for="email"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                     >
-                      مرا به خاطر داشته باش
+                      ایمیل
                     </label>
+                    <input
+                      type="email"
+                      id="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="your@email.com"
+                      required
+                    />
+                    {emailErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
                   </div>
-                  <a
-                    href="#"
-                    className="text-xs text-indigo-500 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  <div className="mb-4">
+                    <label
+                      for="password"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      رمزعبور
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="Enter your password"
+                      required
+                    />
+                    {passwordErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+
+                    <a
+                      href="#"
+                      className="text-xs text-gray-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      رمزعبور خود را فراموش کردین؟
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between mb-4">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setLogin(false);
+                      }}
+                      className="text-xs text-indigo-500 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      ساخت اکانت
+                    </a>
+                  </div>
+                  <button
+                    type="submit"
+                    onClick={(e) => handleSubmit(e)}
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
-                    ساخت اکانت
-                  </a>
-                </div>
-                <button
-                  type="submit"
-                  onClick={(e) => handleSubmit(e)}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  ورود
-                </button>
-              </form>
+                    ورود
+                  </button>
+                </form>
+              </div>
             </div>
-          </div>
-        )}{" "}
-        <NavBar login="true" />
-      </div>
-    </React.Fragment>
-  );
+          )}{" "}
+          <NavBar login="true" />
+        </div>
+      </React.Fragment>
+    );
+  } else {
+    return (
+      <React.Fragment>
+        <div>
+          {token ? (
+            <Profile user={localStorage.getItem("USER")} />
+          ) : (
+            <div
+              className="min-h-screen flex items-center justify-center mt-5 w-full dark:bg-gray-950 mb-36"
+              dir="rtl"
+            >
+              <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg px-8 py-6 max-w-md">
+                <h1 className="text-2xl font-bold text-center mb-4 dark:text-gray-200">
+                  ثبت نام
+                </h1>
+
+                <form action="#">
+                  <div className="mb-4">
+                    <label
+                      for="name"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      نام کامل{" "}
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      onChange={(e) => setName(e.target.value)}
+                      value={email}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="نام و نام خانوادگی"
+                      required
+                    />
+                    {nameErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      for="email"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      ایمیل
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="your@email.com"
+                      required
+                    />
+                    {emailErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      for="mobile"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      تلفن{" "}
+                    </label>
+                    <input
+                      type="text"
+                      id="mobile"
+                      onChange={(e) => setMobile(e.target.value)}
+                      value={email}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="۰۹۱۱۲۲۲۳۳۳۳"
+                      required
+                    />
+                    {mobileErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      for="password"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      رمزعبور
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="*******"
+                      required
+                    />
+                    {passwordErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      for="password_confirm"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      تکرار رمزعبور
+                    </label>
+                    <input
+                      type="password"
+                      id="confirm_password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="*******"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      for="city"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      شهر
+                    </label>
+                    <input
+                      type="text"
+                      id="city"
+                      onChange={(e) => setCity(e.target.value)}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="شهر"
+                      required
+                    />
+                    {cityErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </div>
+                  <div className="mb-4">
+                    <label
+                      for="codePost"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                     کد پستی
+                    </label>
+                    <input
+                      type="text"
+                      id="password"
+                      onChange={(e) => setCodePost(e.target.value)}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="کدپستی"
+                      required
+                    />
+                    {codePostErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </div>
+
+                  <div className="mb-4">
+                    <label
+                      for="address"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      آدرس{" "}
+                    </label>
+                    <textarea
+                      type="text"
+                      id="address"
+                      onChange={(e) => setAddress(e.target.value)}
+                      value={email}
+                      className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                      placeholder="آدرس"
+                      required
+                    />
+                    {addressErrors.map((error) => (
+                      <React.Fragment>
+                        <label className="text-red-600">{error}</label>
+                        <br />
+                      </React.Fragment>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between mb-4">
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setLogin(true);
+                      }}
+                      className="text-xs text-indigo-500 hover:text-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      ورود{" "}
+                    </a>
+                  </div>
+                  <button
+                    type="submit"
+                    onClick={(e) => handleSubmit(e)}
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  >
+                    ثبت نام
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}{" "}
+          <NavBar login="true" />
+        </div>
+      </React.Fragment>
+    );
+  }
 }
 
 export default Login;

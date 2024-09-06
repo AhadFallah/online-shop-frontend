@@ -12,6 +12,7 @@ function Login() {
   const [codePost, setCodePost] = useState("");
   const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const { user, token, setUser, setToken } = useStateContext();
   const [loading, setLoading] = useState(false);
   const [emailErrors, setEmailErrors] = useState([]);
@@ -43,6 +44,37 @@ function Login() {
 
     setLoading(false);
   };
+  const handleReg = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    axiosClient
+      .post("register", {
+        name:name,
+        email:email,
+        password:password,
+        password_confirmation: passwordConfirm,
+        address:address,
+        code_post: codePost,
+        city:city,
+        mobile:mobile,
+      })
+      .then((data) => {
+        data = data.data;
+        setToken(data.token);
+        setUser(data.user);
+        localStorage.setItem("USER", JSON.stringify(data.user));
+      })
+      .catch((error) => {
+        setEmailErrors(error.response.data.errors.email);
+        setPasswordErrors(error.response.data.errors.password);
+        setCityErrors(error.response.data.errors.city);
+        setNameErrors(error.response.data.errors.name);
+        setAddressErrors(error.response.data.errors.address);
+        setCodePostErrors(error.response.data.errors.code_post);
+        setMobileErrors(error.response.data.errors.mobile);
+      });
+      setLoading(false)
+  };
   if (login) {
     return (
       <React.Fragment>
@@ -67,20 +99,22 @@ function Login() {
                       ایمیل
                     </label>
                     <input
-                      type="email"
-                      id="email"
+                    type="email"
+                    id="email"
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
                       className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       placeholder="your@email.com"
                       required
                     />
-                    {emailErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {emailErrors
+                      ? emailErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
                   <div className="mb-4">
                     <label
@@ -97,12 +131,14 @@ function Login() {
                       placeholder="Enter your password"
                       required
                     />
-                    {passwordErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {passwordErrors
+                      ? passwordErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
 
                     <a
                       href="#"
@@ -166,17 +202,19 @@ function Login() {
                       type="text"
                       id="name"
                       onChange={(e) => setName(e.target.value)}
-                      value={email}
+                      value={name}
                       className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       placeholder="نام و نام خانوادگی"
                       required
                     />
-                    {nameErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {nameErrors
+                      ? nameErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
                   <div className="mb-4">
                     <label
@@ -194,12 +232,14 @@ function Login() {
                       placeholder="your@email.com"
                       required
                     />
-                    {emailErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {emailErrors
+                      ? emailErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
                   <div className="mb-4">
                     <label
@@ -212,17 +252,19 @@ function Login() {
                       type="text"
                       id="mobile"
                       onChange={(e) => setMobile(e.target.value)}
-                      value={email}
+                      value={mobile}
                       className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       placeholder="۰۹۱۱۲۲۲۳۳۳۳"
                       required
                     />
-                    {mobileErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {mobileErrors
+                      ? mobileErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
 
                   <div className="mb-4">
@@ -240,12 +282,14 @@ function Login() {
                       placeholder="*******"
                       required
                     />
-                    {passwordErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {passwordErrors
+                      ? passwordErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
                   <div className="mb-4">
                     <label
@@ -257,7 +301,7 @@ function Login() {
                     <input
                       type="password"
                       id="confirm_password"
-                      onChange={(e) => setPassword(e.target.value)}
+                      onChange={(e) => setPasswordConfirm(e.target.value)}
                       className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       placeholder="*******"
                       required
@@ -278,19 +322,21 @@ function Login() {
                       placeholder="شهر"
                       required
                     />
-                    {cityErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {cityErrors
+                      ? cityErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
                   <div className="mb-4">
                     <label
                       for="codePost"
                       className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                     >
-                     کد پستی
+                      کد پستی
                     </label>
                     <input
                       type="text"
@@ -300,12 +346,14 @@ function Login() {
                       placeholder="کدپستی"
                       required
                     />
-                    {codePostErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {codePostErrors
+                      ? codePostErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
 
                   <div className="mb-4">
@@ -319,17 +367,19 @@ function Login() {
                       type="text"
                       id="address"
                       onChange={(e) => setAddress(e.target.value)}
-                      value={email}
+                      value={address}
                       className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                       placeholder="آدرس"
                       required
                     />
-                    {addressErrors.map((error) => (
-                      <React.Fragment>
-                        <label className="text-red-600">{error}</label>
-                        <br />
-                      </React.Fragment>
-                    ))}
+                    {addressErrors
+                      ? addressErrors.map((error) => (
+                          <React.Fragment>
+                            <label className="text-red-600">{error}</label>
+                            <br />
+                          </React.Fragment>
+                        ))
+                      : null}
                   </div>
 
                   <div className="flex items-center justify-between mb-4">
@@ -346,7 +396,7 @@ function Login() {
                   </div>
                   <button
                     type="submit"
-                    onClick={(e) => handleSubmit(e)}
+                    onClick={(e) => handleReg(e)}
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-900 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     ثبت نام

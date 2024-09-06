@@ -14,7 +14,7 @@ function Category() {
   const [products, setProducts] = useState([]);
   let pagi = [];
   const [loading, setLoading] = useState(true); // Add loading state
-  const data = url.url+"/category";
+  const data = url.url+"category";
   const [page, setPage] = useState(data);
   useEffect(() => {
     setLoading(true);
@@ -28,6 +28,7 @@ function Category() {
         data = data.data;
         setProducts(data.products);
         setLoading(false); // Set loading to false once data is fetched
+        console.log(products);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

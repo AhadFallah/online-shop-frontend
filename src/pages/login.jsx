@@ -49,14 +49,14 @@ function Login() {
     setLoading(true);
     axiosClient
       .post("register", {
-        name:name,
-        email:email,
-        password:password,
+        name: name,
+        email: email,
+        password: password,
         password_confirmation: passwordConfirm,
-        address:address,
+        address: address,
         code_post: codePost,
-        city:city,
-        mobile:mobile,
+        city: city,
+        mobile: mobile,
       })
       .then((data) => {
         data = data.data;
@@ -73,7 +73,7 @@ function Login() {
         setCodePostErrors(error.response.data.errors.code_post);
         setMobileErrors(error.response.data.errors.mobile);
       });
-      setLoading(false)
+    setLoading(false);
   };
   if (login) {
     return (
@@ -99,8 +99,8 @@ function Login() {
                       ایمیل
                     </label>
                     <input
-                    type="email"
-                    id="email"
+                      type="email"
+                      id="email"
                       onChange={(e) => setEmail(e.target.value)}
                       value={email}
                       className="shadow-sm rounded-md w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"

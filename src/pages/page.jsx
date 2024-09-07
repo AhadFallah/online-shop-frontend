@@ -111,10 +111,23 @@ function Page() {
 
                 <p class="text-gray-600 mb-4">فروشنده: {product.sellerName}</p>
                 <div class="mb-4">
-                  <span class="text-2xl font-bold mr-2">
-                    {product.price}تومان
-                  </span>
-                  {/* <span class="text-gray-500 line-through">$399.99</span> */}
+                  {product.discount ? (
+            <React.Fragment>
+              <span class="font-semibold text-red-800 dark:text-red-800 line-through">
+                {product.price} تومان
+              </span><br />
+              <span className="text-red-800">همراه با تخفیف</span>
+              <br />
+              <span class="font-semibold text-red-800 dark:text-red-800 ">
+                {product.finalPrice}                تومان
+              </span>
+            </React.Fragment>
+          ) : (
+            <span class="font-semibold text-gray-800 dark:text-gray-50">
+              {product.price} تومان
+            </span>
+          )}
+                          {/* <span class="text-gray-500 line-through">$399.99</span> */}
                 </div>
                 {/* <div class="flex items-center mb-4">
                 <svg

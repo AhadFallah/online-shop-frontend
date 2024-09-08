@@ -32,12 +32,17 @@ function Profile(props) {
           </div>
           <div className="m-2 flex justify-end inline-flex">
             {" "}
-            <a
-              href="#"
-              className="inline-flex hover:text-gray-300"
-            >
+         
              <button
 className="button"
+              onClick={(e) => handleLogout(e)}
+              style={{
+      '--color': '#90EE90',
+      '--border': '2px',
+      '--slant': '.5em'
+    }}> ویرایش</button>
+  <button
+className="button mr-5"
               onClick={(e) => handleLogout(e)}
               style={{
       '--color': '#f3738a',
@@ -45,7 +50,6 @@ className="button"
       '--slant': '.5em'
     }}> خروج</button>
 
-            </a>
           </div>
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0 ">

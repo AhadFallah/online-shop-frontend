@@ -18,6 +18,7 @@ import Result from "./pages/result";
 import Category from "./pages/category";
 import Popular from "./pages/populer";
 import "./css/style.css";
+import EditProfile from "./pages/editProfile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
   {
     path: "/category",
     element: <Category />,
+  },
+  {
+    path: "/editProfile",
+    element: <EditProfile />,
   },
 ]);
 

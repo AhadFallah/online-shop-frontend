@@ -10,16 +10,16 @@ function NavBar(props) {
             class="grid max-w-xs grid-cols-3 gap-1 p-1 mx-auto my-2 bg-gray-100 rounded-lg dark:bg-gray-600"
             role="group"
           >
-            <button
+            <Link to="/popular"
               type="button"
               class={
-                "px-5 py-1.5 text-xs font-medium" +
+                "px-5 py-1.5 text-center text-xs font-medium" +
                 (props.pop ? " text-white bg-gray-900 " : " text-gray-900 ") +
                 "hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700 rounded-lg"
               }
             >
               پرطرفدار
-            </button>
+            </Link>
             <Link
               to="/"
               class={

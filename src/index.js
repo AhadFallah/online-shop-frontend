@@ -16,6 +16,8 @@ import Page from "./pages/page";
 import Start from "./components/start";
 import Result from "./pages/result";
 import Category from "./pages/category";
+import Popular from "./pages/populer";
+import "./css/style.css";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +42,10 @@ const router = createBrowserRouter([
   {
     path: "/newest",
     element: <New />,
+  },
+  {
+    path: "/popular",
+    element: <Popular />,
   },
   {
     path: "/details",

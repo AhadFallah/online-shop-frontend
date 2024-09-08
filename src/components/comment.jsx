@@ -99,17 +99,18 @@ function Comment(props) {
                   <p class="text-gray-600 mt-2 mr-10">{myComment.comment}</p>
                 </div>
                 {myComment.suggest == 1 ? (
-                  <div className="bg-green-500 rounded-md  h-9 px-5 mt-2 text-white">
+    <div class="bg-green-200 px-6 py-4 mx-2 my-4 h-9 rounded-md text-green-800 text-lg flex items-center mx-auto max-w-lg">
                     محصول رو پیشنهاد میکنم
                   </div>
                 ) : null}
                 {myComment.suggest == 2 ? (
-                  <div className="bg-yellow-300 h-9 rounded-md px-5 mt-2 text-black">
+                      <div class="bg-orange-200 px-6 text-yellow-800 h-9 py-4 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+
                     نظری ندارم
                   </div>
                 ) : null}
                 {myComment.suggest == 3 ? (
-                  <div className="bg-red-500 h-9 px-5 rounded-md mt-2 text-white">
+    <div class="bg-red-200 px-6 py-4 h-9 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg text-red-800">
                     توصیه نمیکنم
                   </div>
                 ) : null}

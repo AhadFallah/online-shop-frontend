@@ -84,8 +84,8 @@ function Page() {
 
       <div>
         {" "}
-        <div class="mb-36">
-          <div class="container mx-auto px-4 py-8">
+        <div class="mb-36 flex justify-center flex-wrap" >
+          <div class="container mx-auto px-4 py-8 shadow-lg">
             <div class="flex flex-wrap -mx-4">
               <div class="w-full md:w-1/2 px-4 mb-8">
                 <img

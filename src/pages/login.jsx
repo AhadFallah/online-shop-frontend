@@ -13,6 +13,7 @@ function Login() {
   const [codePost, setCodePost] = useState("");
   const [city, setCity] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const { user, token, setUser, setToken } = useStateContext();
   const [loading, setLoading] = useState(false);
@@ -39,8 +40,13 @@ function Login() {
         localStorage.setItem("USER", JSON.stringify(data.user));
       })
       .catch((error) => {
-        setEmailErrors(error.response.data.errors.email);
+                setAuth(error.response.data.message);
+
+        if(auth){
+               }
+        else{ setEmailErrors(error.response.data.errors.email);
         setPasswordErrors(error.response.data.errors.password);
+}
       });
 
     setLoading(false);
@@ -115,6 +121,14 @@ function Login() {
                             <br />
                           </React.Fragment>
                         ))
+                      : null}
+                    {auth
+                      ? (
+                          <React.Fragment>
+                            <label className="text-red-600">اطلاعات وارد شده اشتباه است</label>
+                            <br />
+                          </React.Fragment>
+                        )
                       : null}
                   </div>
                   <div className="mb-4">

@@ -2,21 +2,21 @@ import React, { useContext } from "react";
 import axiosClient from "../config/axiosClient";
 import { useStateContext } from "../context/context";
 import { Link } from "react-router-dom";
-import '../css/style.css'
+import "../css/style.css";
 
 function Profile(props) {
-  const {  token, setToken, setUser } = useStateContext();
+  const { token, setToken, setUser } = useStateContext();
   const handleLogout = (e) => {
     e.preventDefault();
     axiosClient
       .post("logout")
       .then((data) => {
         setToken("");
-        setUser('');
+        setUser("");
       })
       .catch((error) => console.log(error));
   };
-  const user=JSON.parse(props.user);
+  const user = JSON.parse(props.user);
   return (
     <div className="mb-36">
       <div
@@ -32,24 +32,30 @@ function Profile(props) {
           </div>
           <div className="m-2 flex justify-end inline-flex">
             {" "}
-         
-             <button
-className="button"
+            <Link
+              className="button flex items-center"
+              to="/editProfile"
+              style={{
+                "--color": "#000000",
+                "--border": "2px",
+                "--slant": ".5em",
+              }}
+            >
+              {" "}
+              ویرایش
+            </Link>
+            <button
+              className="button mr-5 "
               onClick={(e) => handleLogout(e)}
               style={{
-      '--color': '#90EE90',
-      '--border': '2px',
-      '--slant': '.5em'
-    }}> ویرایش</button>
-  <button
-className="button mr-5"
-              onClick={(e) => handleLogout(e)}
-              style={{
-      '--color': '#f3738a',
-      '--border': '2px',
-      '--slant': '.5em'
-    }}> خروج</button>
-
+                "--color": "#FF0000",
+                "--border": "2px",
+                "--slant": ".5em",
+              }}
+            >
+              {" "}
+              خروج
+            </button>
           </div>
         </div>
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0 ">
@@ -88,24 +94,14 @@ className="button mr-5"
       >
         <div class="border-t border-gray-200 px-4 py-5 sm:p-0 divide-y">
           <div class=" grid grid-cols-2 text-center">
-            <Link  className="p-4 m-2 b styled-link ">
-              سفارشات
-            </Link>
-            <Link className="p-4 m-2 styled-link">
-              نظرات
-            </Link>
+            <Link className="p-4 m-2 b styled-link ">سفارشات</Link>
+            <Link className="p-4 m-2 styled-link">نظرات</Link>
           </div>
           <div class="grid grid-cols-2 text-center">
-            <Link
-              to="/bookmarks"
-              className="p-4 m-2 styled-link"
-            >
+            <Link to="/bookmarks" className="p-4 m-2 styled-link">
               نشان شده ها
             </Link>
-            <Link
-              to="/basket"
-              className="p-3 m-2  styled-link"
-            >
+            <Link to="/basket" className="p-3 m-2  styled-link">
               سبد خرید
             </Link>
           </div>
